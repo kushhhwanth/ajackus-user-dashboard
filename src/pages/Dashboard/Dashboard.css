@@ -1,15 +1,31 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.dashboard{
+    width:min(1200px,90%);
+    margin:40px auto;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f7fc;
+.dashboard-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
 }
 
-h1 {
-    padding: 30px;
-    text-align: center;
+.dashboard-header h1{
+    padding:0;
+    font-size:32px;
+}
+
+.add-btn{
+    border:none;
+    background:#2563eb;
+    color:white;
+    padding:12px 22px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    transition:.3s;
+}
+
+.add-btn:hover{
+    background:#1d4ed8;
 }

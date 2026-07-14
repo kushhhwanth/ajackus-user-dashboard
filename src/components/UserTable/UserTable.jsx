@@ -15,20 +15,21 @@ function UserTable({ users }) {
             </thead>
 
             <tbody>
-                {users.map((user) => (
-                    <tr key={user.id}>
-                        <td>{user.id}</td>
-                        <td>{user.firstName}</td>
-                        <td>{user.lastName}</td>
-                        <td>{user.email}</td>
-                        <td>{user.department}</td>
-                        <td>
-                            Edit Delete
+              {users.map((user) => (
+                <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.firstName}</td>
+                    <td>{user.lastName}</td>
+                    <td>{user.email}</td>
+                    <td>{user.department}</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
                         </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+                        </tr>
+                    ))}
+                    </tbody>
+                    </table>
     );
 }
 

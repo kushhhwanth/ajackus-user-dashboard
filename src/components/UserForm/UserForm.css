@@ -1,0 +1,25 @@
+.user-table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.user-table th{
+    background:#2563eb;
+    color:white;
+    padding:15px;
+}
+
+.user-table td{
+    padding:14px;
+    text-align:center;
+    border-bottom:1px solid #eee;
+}
+
+.empty{
+    padding:40px;
+    color:#777;
+}
