@@ -31,17 +31,17 @@ function Dashboard() {
 
       const response = await api.get("/users");
 
-      const formattedUsers = response.data.map((user) => {
-        const names = user.name.split(" ");
-
-        return {
-          id: user.id,
-          firstName: names[0],
-          lastName: names.slice(1).join(" "),
-          email: user.email,
-          department: getDepartment(user.id),
-        };
-      });
+      const formattedUsers = [];
+      for (let i = 0; i < 20; i++) { response.data.forEach((user) => { const names = user.name.split(" ");
+        
+        formattedUsers.push({
+            id: i * 10 + user.id,
+            firstName: names[0],
+            lastName: names.slice(1).join(" "),
+            email: `user${i * 10 + user.id}@example.com`,
+            department: getDepartment(i * 10 + user.id),});
+        });
+    }
 
       setUsers(formattedUsers);
     } catch (error) {
