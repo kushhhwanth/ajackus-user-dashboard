@@ -11,6 +11,8 @@ function Dashboard() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOption, setSortOption] = useState("id-asc");
 
   async function fetchUsers() {
     try {
@@ -46,6 +48,35 @@ function Dashboard() {
     loadUsers();
 }, []);
 
+  const filteredUsers = users
+  .filter((user) => {
+    const search = searchTerm.toLowerCase();
+
+    return (
+      user.firstName.toLowerCase().includes(search) ||
+      user.lastName.toLowerCase().includes(search) ||
+      user.email.toLowerCase().includes(search)
+    );
+  })
+  .sort((a, b) => {
+    switch (sortOption) {
+      case "id-asc":
+        return a.id - b.id;
+
+      case "id-desc":
+        return b.id - a.id;
+
+      case "name-asc":
+        return a.firstName.localeCompare(b.firstName);
+
+      case "name-desc":
+        return b.firstName.localeCompare(a.firstName);
+
+      default:
+        return 0;
+    }
+  });
+
   return (
     <>
       <Navbar />
@@ -57,14 +88,19 @@ function Dashboard() {
           <button className="add-btn">+ Add User</button>
         </div>
 
-        <SearchBar />
+        <SearchBar
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        sortOption={sortOption}
+        setSortOption={setSortOption}
+        />
 
         {loading ? (
           <h2>Loading users...</h2>
         ) : error ? (
           <h2>{error}</h2>
         ) : (
-          <UserTable users={users} />
+          <UserTable users={filteredUsers} />
         )}
 
         <Pagination />
