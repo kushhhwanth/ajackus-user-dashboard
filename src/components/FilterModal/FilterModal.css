@@ -1,0 +1,39 @@
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.filter-modal{
+    width:420px;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.filter-modal h2{
+    margin-bottom:10px;
+}
+
+.filter-modal input{
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+.filter-modal button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:8px;
+    cursor:pointer;
+}

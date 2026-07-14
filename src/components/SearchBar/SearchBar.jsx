@@ -1,10 +1,11 @@
 import "./SearchBar.css";
 
 function SearchBar({
-    searchTerm,
-    setSearchTerm,
-    sortOption,
-    setSortOption,
+  searchTerm,
+  setSearchTerm,
+  sortOption,
+  setSortOption,
+  setShowFilter,
 }) {
   return (
     <div className="search-container">
@@ -25,7 +26,7 @@ function SearchBar({
         <option value="name-desc">Z - A</option>
         </select>
 
-      <button>Filter</button>
+      <button onClick={() => setShowFilter(true)}>Filter</button>
     </div>
   );
 }

@@ -1,21 +1,48 @@
 import "./Pagination.css";
 
-function Pagination(){
+function Pagination({
+  currentPage,
+  setCurrentPage,
+  totalPages,
+  pageSize,
+  setPageSize,
+}) {
+  return (
+    <div className="pagination">
 
-    return(
+      <button
+        disabled={currentPage === 1}
+        onClick={() => setCurrentPage(currentPage - 1)}
+      >
+        Previous
+      </button>
 
-        <div className="pagination">
+      <span>
+        Page {currentPage} of {totalPages || 1}
+      </span>
 
-            <button>Previous</button>
+      <button
+        disabled={currentPage === totalPages || totalPages === 0}
+        onClick={() => setCurrentPage(currentPage + 1)}
+      >
+        Next
+      </button>
 
-            <span>Page 1</span>
+      <select
+        value={pageSize}
+        onChange={(e) => {
+          setPageSize(Number(e.target.value));
+          setCurrentPage(1);
+        }}
+      >
+        <option value={10}>10</option>
+        <option value={25}>25</option>
+        <option value={50}>50</option>
+        <option value={100}>100</option>
+      </select>
 
-            <button>Next</button>
-
-        </div>
-
-    )
-
+    </div>
+  );
 }
 
 export default Pagination;

@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import UserTable from "../../components/UserTable/UserTable";
 import Pagination from "../../components/Pagination/Pagination";
+import FilterModal from "../../components/FilterModal/FilterModal";
 import api from "../../services/api";
 import { getDepartment } from "../../utils/department";
 import "./Dashboard.css";
@@ -13,6 +14,16 @@ function Dashboard() {
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("id-asc");
+  const [showFilter, setShowFilter] = useState(false);
+  
+  const [filters, setFilters] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    department: "", });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   async function fetchUsers() {
     try {
@@ -58,6 +69,22 @@ function Dashboard() {
       user.email.toLowerCase().includes(search)
     );
   })
+  .filter((user) => {
+    return (
+      user.firstName
+        .toLowerCase()
+        .includes(filters.firstName.toLowerCase()) &&
+      user.lastName
+        .toLowerCase()
+        .includes(filters.lastName.toLowerCase()) &&
+      user.email
+        .toLowerCase()
+        .includes(filters.email.toLowerCase()) &&
+      user.department
+        .toLowerCase()
+        .includes(filters.department.toLowerCase())
+    );
+  })
   .sort((a, b) => {
     switch (sortOption) {
       case "id-asc":
@@ -77,6 +104,9 @@ function Dashboard() {
     }
   });
 
+  const totalPages = Math.ceil(filteredUsers.length / pageSize);
+  const paginatedUsers = filteredUsers.slice( (currentPage - 1) * pageSize, currentPage * pageSize );
+
   return (
     <>
       <Navbar />
@@ -93,6 +123,7 @@ function Dashboard() {
         setSearchTerm={setSearchTerm}
         sortOption={sortOption}
         setSortOption={setSortOption}
+        setShowFilter={setShowFilter}
         />
 
         {loading ? (
@@ -100,11 +131,25 @@ function Dashboard() {
         ) : error ? (
           <h2>{error}</h2>
         ) : (
-          <UserTable users={filteredUsers} />
+          <UserTable users={paginatedUsers} />
         )}
 
-        <Pagination />
+        <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
+        />
       </div>
+
+      {showFilter && (
+        <FilterModal
+        filters={filters}
+        setFilters={setFilters}
+        setShowFilter={setShowFilter}
+        />
+        )}
     </>
   );
 }
