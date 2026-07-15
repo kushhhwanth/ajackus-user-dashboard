@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Navbar from "../../components/Navbar/Navbar";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import Navbar from "../../components/Navbar/Navbar";
 import UserTable from "../../components/UserTable/UserTable";
 import Pagination from "../../components/Pagination/Pagination";
 import FilterModal from "../../components/FilterModal/FilterModal";
@@ -34,13 +34,22 @@ function Dashboard() {
   const [isEditing, setIsEditing] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+
   async function fetchUsers() {
     try {
       setLoading(true);
 
+      const savedUsers = localStorage.getItem("users");
+      
+      if (savedUsers) {
+        setUsers(JSON.parse(savedUsers));
+        return;
+      }
+
       const response = await api.get("/users");
 
       const formattedUsers = [];
+
       for (let i = 0; i < 20; i++) { response.data.forEach((user) => { const names = user.name.split(" ");
         
         formattedUsers.push({
@@ -53,6 +62,9 @@ function Dashboard() {
     }
 
       setUsers(formattedUsers);
+
+      localStorage.setItem("users", JSON.stringify(formattedUsers));
+
     } catch (error) {
       console.error(error);
       setError("Failed to load users.");
@@ -160,14 +172,21 @@ function Dashboard() {
     loadUsers();
 }, []);
 
+  useEffect(() => {
+  if (users.length > 0) {
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+}, [users]);
+
   const filteredUsers = useUsers(
     users,
     searchTerm,
     filters,
     sortOption );
 
-  const totalPages = Math.max(1, filteredUsers.length / pageSize);
-  const paginatedUsers = filteredUsers.slice( (currentPage - 1) * pageSize, currentPage * pageSize );
+  const totalPages = Math.ceil(filteredUsers.length / pageSize);
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const paginatedUsers = filteredUsers.slice( (currentPage - 1) * pageSize, safeCurrentPage * pageSize );
   const totalUsers = users.length;
   const totalDepartments = new Set(
   users.map((user) => user.department)).size;
@@ -240,7 +259,7 @@ function Dashboard() {
         )}
 
         <Pagination
-        currentPage={currentPage}
+        currentPage={safeCurrentPage}
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
         pageSize={pageSize}

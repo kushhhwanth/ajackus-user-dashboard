@@ -5,7 +5,7 @@ body{
 }
 
 .dashboard {
-    width: min(1400px, 92%);
+    width: min(1200px, 92%);
     margin: 24px auto;
 }
 
@@ -18,21 +18,22 @@ body{
     justify-content:space-between;
     align-items:center;
 
-    padding:40px;
+    padding:30px 40px;
     margin-bottom:35px;
 }
 
 .dashboard-header h1{
     color:white;
-    font-size:42px;
+    font-size:3.2rem;
     margin:0;
-    font-weight:700;
+    font-weight:600;
+    line-height: 1.2;
 }
 
 .dashboard-header p{
-    margin-top:12px;
+    margin-top:8px;
     color:#94a3b8;
-    font-size:18px;
+    font-size:1rem;
 }
 
 .add-btn{
@@ -42,9 +43,9 @@ body{
     border:none;
     border-radius:12px;
 
-    padding:15px 28px;
+    padding:12px 24px;
 
-    font-size:17px;
+    font-size:16px;
     font-weight:600;
 
     cursor:pointer;
@@ -96,7 +97,8 @@ body{
     border:1px solid #334155;
     border-radius:18px;
 
-    padding:25px;
+    padding:12px;
+    min-height: 60px;
 
     transition:.25s;
 
@@ -110,13 +112,13 @@ body{
 
 .stat-card h4{
     color:#94a3b8;
-    font-size:15px;
+    font-size:14px;
     margin-bottom:12px;
 }
 
 .stat-card h2{
     color:white;
-    font-size:34px;
+    font-size:24px;
     font-weight:700;
 }
 

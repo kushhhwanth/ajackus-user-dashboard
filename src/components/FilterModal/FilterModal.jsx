@@ -1,15 +1,29 @@
 import "./FilterModal.css";
+import { useEffect } from "react";
 
 function FilterModal({
   filters,
   setFilters,
   setShowFilter,
 }) {
+
+    useEffect(() => {
+        const handleEsc = (e) => {
+            if (e.key === "Escape") {
+                setShowFilter(false);
+            }
+        };
+        document.addEventListener("keydown", handleEsc);
+        return () => {
+            document.removeEventListener("keydown", handleEsc);
+        };
+    }, [setShowFilter]);
+
   return (
-    <div className="modal-overlay">
+    <div className="modal-overlay" onClick={() => setShowFilter(false)}>
 
-      <div className="filter-modal">
-
+      <div className="filter-modal" onClick={(e) => e.stopPropagation()}>
+    
         <h2>Filters</h2>
 
         <input

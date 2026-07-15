@@ -29,13 +29,16 @@ function UserTable({
                     <td>{user.email}</td>
                     <td><span className="department-badge">{user.department}</span></td>
                     <td>
-                        <button className="edit-btn" onClick={() => {
-                            setEditingUser(user);
-                            setIsEditing(true);
-                            setShowForm(true);
-                        }}> Edit </button>
-                        <button className="delete-btn" 
-                        onClick={() => { handleDeleteClick(user.id); }}> Delete </button>
+                        <div className="action-buttons">
+                            <button className="edit-btn" onClick={() => {
+                                setEditingUser(user);
+                                setIsEditing(true);
+                                setShowForm(true);
+                            }} > Edit </button>
+                            <button className="delete-btn" onClick={() => {
+                                handleDeleteClick(user.id); }} >
+                                    Delete </button>
+                            </div>
                         </td>
                         </tr>
                     ))}
