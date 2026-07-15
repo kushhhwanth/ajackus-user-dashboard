@@ -51,8 +51,8 @@
     padding:10px 20px;
     border:1px solid #475569;
     border-radius:10px;
-    background:transparent;
-    color:#cbd5e1;
+    background:skyblue;
+    color:#000000;
     cursor:pointer;
     transition:all .2s ease;
 }
