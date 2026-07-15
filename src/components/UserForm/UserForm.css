@@ -1,25 +1,66 @@
-.user-table{
-    width:100%;
-    border-collapse:collapse;
-    background:white;
-    border-radius:10px;
-    overflow:hidden;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.user-table th{
-    background:#2563eb;
-    color:white;
-    padding:15px;
+.user-form {
+    width: 450px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
 }
 
-.user-table td{
-    padding:14px;
-    text-align:center;
-    border-bottom:1px solid #eee;
+.user-form h2 {
+    margin-bottom: 20px;
 }
 
-.empty{
-    padding:40px;
-    color:#777;
+.user-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.user-form input,
+.user-form select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.buttons button {
+    width: 48%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.buttons button:first-child {
+    background: #2563eb;
+    color: white;
+}
+
+.buttons button:last-child {
+    background: #dc2626;
+    color: white;
+}
+
+small {
+    color: red;
+}
+
+.buttons button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }

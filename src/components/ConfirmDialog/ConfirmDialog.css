@@ -1,0 +1,55 @@
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.dialog-box {
+  width: 420px;
+  background: #1f1f1f;
+  color: white;
+
+  padding: 30px;
+  border-radius: 12px;
+
+  text-align: center;
+}
+
+.dialog-box h2 {
+  margin-bottom: 15px;
+}
+
+.dialog-box p {
+  color: #ccc;
+  margin-bottom: 25px;
+}
+
+.dialog-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.confirm-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #555;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}

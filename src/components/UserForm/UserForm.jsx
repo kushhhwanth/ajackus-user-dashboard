@@ -1,46 +1,124 @@
-import "./UserTable.css";
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import "./UserForm.css";
 
-function UserTable({ users }) {
+function UserForm({
+  title,
+  onSubmit,
+  onClose,
+  defaultValues = {},
+}) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues,
+  });
 
-    return (
+  const [saving, setSaving] = useState(false);
 
-        <table className="user-table">
+  const submitForm = async (data) => {
+  setSaving(true);
 
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Department</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+  try {
+    await onSubmit(data);
+  } finally {
+    setSaving(false);
+  }
+};
 
-            <tbody>
+  useEffect(() => {
+  const handleEsc = (event) => {
+    if (event.key === "Escape") {
+      onClose();
+    }
+  };
 
-                {
-                    users.length === 0 ? (
+  window.addEventListener("keydown", handleEsc);
 
-                        <tr>
+  return () => {
+    window.removeEventListener("keydown", handleEsc);
+  };
+}, [onClose]);
 
-                            <td
-                                colSpan="6"
-                                className="empty"
-                            >
-                                No users found
-                            </td>
+  return (
+    <div className="modal-overlay" onClick={onclose}>
+      <div className="user-form" onClick={(e)=>e.stopPropagation()}>
 
-                        </tr>
+        <h2>{title}</h2>
 
-                    ) : null
-                }
+        <form onSubmit={handleSubmit(submitForm)}>
 
-            </tbody>
+          <input
+            placeholder="First Name"
+            {...register("firstName", {
+              required: "First name is required",
+            })}
+          />
 
-        </table>
+          {errors.firstName && (
+            <small>{errors.firstName.message}</small>
+          )}
 
-    );
+          <input
+            placeholder="Last Name"
+            {...register("lastName", {
+              required: "Last name is required",
+            })}
+          />
+
+          {errors.lastName && (
+            <small>{errors.lastName.message}</small>
+          )}
+
+          <input
+            placeholder="Email"
+            type="email"
+            {...register("email", {
+                required: "Email is required",
+                pattern: {
+                    value: /^\S+@\S+\.\S+$/,
+                    message: "Invalid email address",
+                },
+            })}
+          />
+
+          {errors.email && (
+            <small>{errors.email.message}</small>
+          )}
+
+          <select
+            {...register("department")}
+          >
+            <option>Engineering</option>
+            <option>Finance</option>
+            <option>Marketing</option>
+            <option>Sales</option>
+            <option>Support</option>
+            <option>Human Resources</option>
+          </select>
+
+          <div className="buttons">
+
+            <button type="submit" disabled={saving}>
+                {saving ? "Saving..." : "Save"}
+            </button>
+
+            <button
+              type="button"
+              onClick={onClose}
+            >
+              Cancel
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  );
 }
 
-export default UserTable;
+export default UserForm;

@@ -6,6 +6,7 @@ function SearchBar({
   sortOption,
   setSortOption,
   setShowFilter,
+  setCurrentPage,
 }) {
   return (
     <div className="search-container">
@@ -13,8 +14,12 @@ function SearchBar({
         type="text"
         placeholder="Search users..."
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={(e) => { setSearchTerm(e.target.value);
+            setCurrentPage(1);
+        }}
       />
+
+      <div className="search-actions">
 
       <select
       value={sortOption}
@@ -26,7 +31,8 @@ function SearchBar({
         <option value="name-desc">Z - A</option>
         </select>
 
-      <button onClick={() => setShowFilter(true)}>Filter</button>
+      <button className="filter-btn" onClick={() => setShowFilter(true)}>Filter</button>
+      </div>
     </div>
   );
 }

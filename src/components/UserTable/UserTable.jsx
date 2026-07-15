@@ -1,17 +1,23 @@
 import "./UserTable.css";
 
-function UserTable({ users }) {
+function UserTable({
+    users,
+    setEditingUser,
+    setIsEditing,
+    setShowForm,
+    handleDeleteClick,
+}){
     return (
         <table className="user-table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Department</th>
-                    <th>Actions</th>
-                </tr>
+                    <th>ID ↑ </th>
+                    <th>FIRST NAME</th>
+                    <th>LAST NAME</th>
+                    <th>EMAIL</th>
+                    <th>DEPARTMENT</th>
+                    <th>ACTIONS</th>
+                    </tr>
             </thead>
 
             <tbody>
@@ -21,10 +27,15 @@ function UserTable({ users }) {
                     <td>{user.firstName}</td>
                     <td>{user.lastName}</td>
                     <td>{user.email}</td>
-                    <td>{user.department}</td>
+                    <td><span className="department-badge">{user.department}</span></td>
                     <td>
-                        <button>Edit</button>
-                        <button>Delete</button>
+                        <button className="edit-btn" onClick={() => {
+                            setEditingUser(user);
+                            setIsEditing(true);
+                            setShowForm(true);
+                        }}> Edit </button>
+                        <button className="delete-btn" 
+                        onClick={() => { handleDeleteClick(user.id); }}> Delete </button>
                         </td>
                         </tr>
                     ))}
