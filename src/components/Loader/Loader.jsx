@@ -1,4 +1,3 @@
-import "./Loader.css";
 
 function Loader() {
   return (
